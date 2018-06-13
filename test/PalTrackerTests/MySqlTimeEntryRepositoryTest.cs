@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using PalTracker;
 using Xunit;
+using Microsoft;
+using Microsoft.EntityFrameworkCore;
 
 namespace PalTrackerTests
 {

@@ -1,3 +1,4 @@
+using Steeltoe.CloudFoundry.Connector.MySql.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace PalTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TimeEntryContext>(options => options.UseMySql(Configuration));
+         
             services.AddControllers();
             var message = Configuration.GetValue<string>("WELCOME_MESSAGE");
            if (string.IsNullOrEmpty(message))
@@ -38,8 +41,8 @@ namespace PalTracker
            var index = Configuration.GetValue<string>("CF_INSTANCE_INDEX", "index not set");
            var add = Configuration.GetValue<string>("CF_INSTANCE_ADDR", "address not set");
            services.AddSingleton(a => new CloudFoundryInfo(port,mem, index,add ));
-           services.AddSingleton<ITimeEntryRepository,InMemoryTimeEntryRepository>();
-           
+           //services.AddSingleton<ITimeEntryRepository,InMemoryTimeEntryRepository>();
+           services.AddScoped<ITimeEntryRepository, MySqlTimeEntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
