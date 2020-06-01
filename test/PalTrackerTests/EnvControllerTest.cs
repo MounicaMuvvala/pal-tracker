@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using PalTracker;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.TestHost;
 
 namespace PalTrackerTests
 {
@@ -16,8 +18,8 @@ namespace PalTrackerTests
                 "1",
                 "127.0.0.1"
             );
-
-            var response = new EnvController(cloudFoundryInfo).Get();
+            
+          var response = new EnvController(cloudFoundryInfo).Get();
 
             Assert.Equal("8080", response.Port);
             Assert.Equal("512M", response.MemoryLimit);
